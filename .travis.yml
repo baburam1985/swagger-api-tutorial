@@ -1,0 +1,40 @@
+language: java
+
+sudo: false
+dist: trusty
+
+os:
+- linux
+- osx
+
+jdk:
+- openjdk9
+- openjdk10
+- openjdk11
+- openjdk-ea
+- oraclejdk-ea
+
+matrix:
+  include:
+  - os: linux
+    jdk: openjdk8
+  allow_failures:
+  - os: osx
+    jdk: oraclejdk-ea # TODO Download, install and use "dmg" on Travis CI
+
+before_install:
+- unset _JAVA_OPTIONS
+
+install:
+- echo "The default Travis install script is being skipped!"
+
+before_script:
+- echo JAVA_HOME = ${JAVA_HOME}
+- echo PATH = ${PATH}
+
+script:
+- java -version
+
+after_script:
+- ls ${JAVA_HOME}
+- cat "${JAVA_HOME}/release"
